@@ -1,4 +1,5 @@
 name: "02 - SonarCloud"
+# Touch to force GitHub to re-index workflow display name
 
 env:
   SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION || secrets.SONAR_ORGANIZATION || github.repository_owner }}
