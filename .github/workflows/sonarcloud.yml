@@ -1,7 +1,7 @@
 name: 02-SonarCloud
 
 env:
-  SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION != '' && vars.SONAR_ORGANIZATION || secrets.SONAR_ORGANIZATION }}
+  SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION || secrets.SONAR_ORGANIZATION || github.repository_owner }}
 
 on:
   workflow_dispatch:
@@ -32,9 +32,11 @@ jobs:
       - name: Validate SonarCloud organization
         run: |
           if [ -z "${SONAR_ORGANIZATION}" ]; then
-            echo "Missing SONAR_ORGANIZATION (configure it as Repository Variable or Secret)"
+            echo "Missing SONAR_ORGANIZATION and no fallback could be resolved"
             exit 1
           fi
+
+          echo "Using SonarCloud organization: ${SONAR_ORGANIZATION}"
 
       - name: Validate SonarCloud token
         run: |
