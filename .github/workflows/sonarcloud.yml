@@ -1,4 +1,4 @@
-name: 02-SonarCloud
+name: "02 - SonarCloud"
 
 env:
   SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION || secrets.SONAR_ORGANIZATION || github.repository_owner }}
