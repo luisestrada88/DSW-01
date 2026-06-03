@@ -24,7 +24,7 @@
 
 1. Ejecutar con default local (sin sobreescribir variable) y comprobar que la UI funciona contra `http://localhost:8080/api/v1`.
 2. (Opcional) Sobrescribir variable en Compose:
-   - `API_BASE_URL=http://api:8080/api/v1 docker compose -f docker/docker-compose.yml up --build -d`
+   - `API_BASE_URL=/api/v1 docker compose -f docker/docker-compose.yml up --build -d`
 3. Confirmar que las llamadas de red usan la URL configurada.
 
 ## 4) Ejecutar pruebas automatizadas del contenedor frontend
@@ -53,7 +53,7 @@
 ## 7) Verificar paginación de 10
 
 1. Ejecutar consulta de colección paginada:
-   - `curl -fsS "http://localhost:8080/api/v1/departamentos?page=0" -u "admin@local.test:admin123"`
+   - `curl -fsS "http://localhost:8080/api/v1/departamentos?page=0" -u "admin@localhost:AdminLocal123!"`
 2. Confirmar que el payload reporta tamaño de página fijo de 10 elementos.
 
 ## 8) Verificar preservación de HTTP Basic Auth
@@ -61,7 +61,7 @@
 1. Sin credenciales debe fallar:
    - `curl -i http://localhost:8080/api/v1/departamentos?page=0`
 2. Con credenciales válidas debe responder exitosamente:
-   - `curl -i -u "admin@local.test:admin123" http://localhost:8080/api/v1/departamentos?page=0`
+   - `curl -i -u "admin@localhost:AdminLocal123!" http://localhost:8080/api/v1/departamentos?page=0`
 
 ## 9) Apagar stack
 
@@ -91,4 +91,4 @@
   - Campos observados en payload: `size=10`, `content_len=2`.
 - Verificación preservación HTTP Basic Auth (T033):
   - Sin credenciales: `GET /api/v1/departamentos?page=0` -> `401 Unauthorized`.
-  - Con credenciales válidas (`admin@local.test:admin123`): `GET /api/v1/departamentos?page=0` -> `200 OK`.
+   - Con credenciales válidas (`admin@localhost:AdminLocal123!`): `GET /api/v1/departamentos?page=0` -> `200 OK`.

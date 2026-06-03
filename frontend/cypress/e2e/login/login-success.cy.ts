@@ -1,7 +1,7 @@
 describe('Login exitoso', () => {
   it('redirige a /inicio con credenciales válidas', () => {
-    const email = (Cypress.env('loginEmail') as string | undefined) ?? 'admin@local.test';
-    const password = (Cypress.env('loginPassword') as string | undefined) ?? 'admin123';
+    const email = (Cypress.env('loginEmail') as string | undefined) ?? 'admin@localhost';
+    const password = (Cypress.env('loginPassword') as string | undefined) ?? 'AdminLocal123!';
 
     cy.loginViaUi(email, password);
     cy.url({ timeout: 15000 }).should('include', '/inicio');

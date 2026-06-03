@@ -2,10 +2,12 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: empleados-postgres
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: empleadosdb
-      POSTGRES_USER: empleados
-      POSTGRES_PASSWORD: empleados
+      POSTGRES_DB: ${POSTGRES_DB:-empleadosdb}
+      POSTGRES_USER: ${POSTGRES_USER:-empleados}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-AdminLocal123!}
     expose:
       - "5432"
     volumes:
@@ -21,12 +23,14 @@ services:
       context: ..
       dockerfile: Dockerfile
     container_name: empleados-api
+    env_file:
+      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/empleadosdb
-      SPRING_DATASOURCE_USERNAME: empleados
-      SPRING_DATASOURCE_PASSWORD: empleados
-      APP_BASIC_AUTH_USER: admin@local.test
-      APP_BASIC_AUTH_PASSWORD: admin123
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://postgres:5432/empleadosdb}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-empleados}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-AdminLocal123!}
+      APP_BASIC_AUTH_USER: ${APP_BASIC_AUTH_USER:-admin@localhost}
+      APP_BASIC_AUTH_PASSWORD: ${APP_BASIC_AUTH_PASSWORD:-AdminLocal123!}
     depends_on:
       postgres:
         condition: service_healthy
@@ -38,6 +42,8 @@ services:
       context: ../frontend
       dockerfile: Dockerfile
     container_name: empleados-frontend
+    env_file:
+      - .env
     environment:
       API_BASE_URL: ${API_BASE_URL:-/api/v1}
     depends_on:

@@ -25,14 +25,14 @@ docker compose -f docker/docker-compose.yml up -d --build
 ```bash
 export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/empleadosdb
 export SPRING_DATASOURCE_USERNAME=empleados
-export SPRING_DATASOURCE_PASSWORD=empleados
+export SPRING_DATASOURCE_PASSWORD=AdminLocal123!
 ```
 
 Credenciales iniciales para bootstrap administrativo (solo desarrollo):
 
 ```bash
-export APP_BASIC_AUTH_USER=admin
-export APP_BASIC_AUTH_PASSWORD=admin123
+export APP_BASIC_AUTH_USER=admin@localhost
+export APP_BASIC_AUTH_PASSWORD=AdminLocal123!
 ```
 
 ## 3) Ejecutar aplicación

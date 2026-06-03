@@ -62,10 +62,10 @@ npm run e2e
 Variables recomendadas para escenarios reales:
 
 ```bash
-export CYPRESS_adminEmail="admin@test.com"
-export CYPRESS_adminPassword="clave123"
-export CYPRESS_empleadoEmail="usuario@test.com"
-export CYPRESS_empleadoPassword="clave123"
+export CYPRESS_adminEmail="admin@localhost"
+export CYPRESS_adminPassword="AdminLocal123!"
+export CYPRESS_empleadoEmail="usuario@localhost"
+export CYPRESS_empleadoPassword="AdminLocal123!"
 export CYPRESS_loginEmail="$CYPRESS_adminEmail"
 export CYPRESS_loginPassword="$CYPRESS_adminPassword"
 ```

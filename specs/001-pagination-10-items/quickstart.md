@@ -8,7 +8,7 @@
 ## 1) Consultar primera página
 
 ```bash
-curl -u admin:admin123 "http://localhost:8080/api/v1/empleados?page=0"
+curl -u admin@localhost:AdminLocal123! "http://localhost:8080/api/v1/empleados?page=0"
 ```
 
 Respuesta esperada:
@@ -20,7 +20,7 @@ Respuesta esperada:
 ## 2) Consultar segunda página
 
 ```bash
-curl -u admin:admin123 "http://localhost:8080/api/v1/empleados?page=1"
+curl -u admin@localhost:AdminLocal123! "http://localhost:8080/api/v1/empleados?page=1"
 ```
 
 Respuesta esperada:
@@ -32,7 +32,7 @@ Respuesta esperada:
 ## 3) Verificar comportamiento de page negativa
 
 ```bash
-curl -u admin:admin123 "http://localhost:8080/api/v1/empleados?page=-1"
+curl -u admin@localhost:AdminLocal123! "http://localhost:8080/api/v1/empleados?page=-1"
 ```
 
 Respuesta esperada:

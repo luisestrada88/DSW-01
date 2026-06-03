@@ -1,10 +1,10 @@
 {
   "valid": {
-    "email": "admin@empresa.com",
-    "password": "admin123"
+    "email": "admin@localhost",
+    "password": "AdminLocal123!"
   },
   "invalid": {
-    "email": "noexiste@empresa.com",
+    "email": "noexiste@ejemplo.com",
     "password": "incorrecta123"
   }
 }

@@ -1,9 +1,5 @@
 package com.example.empleados.config;
 
-import com.example.empleados.domain.Empleado;
-import com.example.empleados.domain.RolEmpleado;
-import com.example.empleados.repository.EmpleadoRepository;
-import com.example.empleados.service.EmpleadoAuthPolicyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.empleados.domain.Empleado;
+import com.example.empleados.domain.RolEmpleado;
+import com.example.empleados.repository.EmpleadoRepository;
+import com.example.empleados.service.EmpleadoAuthPolicyService;
 
 @Service
 public class EmpleadoUserDetailsService implements UserDetailsService {
@@ -25,8 +26,8 @@ public class EmpleadoUserDetailsService implements UserDetailsService {
     public EmpleadoUserDetailsService(
             EmpleadoRepository empleadoRepository,
             EmpleadoAuthPolicyService authPolicyService,
-            @Value("${APP_BASIC_AUTH_USER:admin}") String bootstrapUser,
-            @Value("${APP_BASIC_AUTH_PASSWORD:admin123}") String bootstrapPassword,
+            @Value("${APP_BASIC_AUTH_USER:admin@localhost}") String bootstrapUser,
+            @Value("${APP_BASIC_AUTH_PASSWORD:AdminLocal123!}") String bootstrapPassword,
             PasswordEncoder passwordEncoder) {
         this.empleadoRepository = empleadoRepository;
         this.authPolicyService = authPolicyService;

@@ -46,10 +46,10 @@
 1. Ejecutar pruebas frontend unitarias/componentes.
    - `npm --prefix frontend run test`
 2. Ejecutar E2E de permisos por rol.
-   - `export CYPRESS_adminEmail="admin@test.com"`
-   - `export CYPRESS_adminPassword="clave123"`
-   - `export CYPRESS_empleadoEmail="usuario@test.com"`
-   - `export CYPRESS_empleadoPassword="clave123"`
+   - `export CYPRESS_adminEmail="admin@localhost"`
+   - `export CYPRESS_adminPassword="AdminLocal123!"`
+   - `export CYPRESS_empleadoEmail="usuario@localhost"`
+   - `export CYPRESS_empleadoPassword="AdminLocal123!"`
    - `npm --prefix frontend run e2e`
 3. Ejecutar pruebas backend relevantes de seguridad/integración.
    - `mvn test`

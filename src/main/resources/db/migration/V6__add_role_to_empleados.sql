@@ -7,7 +7,7 @@ WHERE rol IS NULL;
 
 UPDATE empleados
 SET rol = 'ADMIN'
-WHERE lower(correo) IN ('admin', 'admin@local.test');
+WHERE lower(correo) IN ('admin', 'admin@localhost');
 
 ALTER TABLE empleados
     ALTER COLUMN rol SET NOT NULL;
