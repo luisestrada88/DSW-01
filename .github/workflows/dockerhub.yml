@@ -2,8 +2,16 @@ name: 04-DockerHub-Publish
 
 env:
   DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE != '' && vars.DOCKERHUB_NAMESPACE || secrets.DOCKERHUB_USERNAME }}
+  SOURCE_SHA: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
+  IMAGE_TAG: ${{ github.event_name == 'workflow_dispatch' && (inputs.image_tag || format('manual-{0}', github.run_number)) || format('pr-{0}', github.event.workflow_run.pull_requests[0].number) }}
 
 on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Optional manual image tag"
+        required: false
+        type: string
   workflow_run:
     workflows: ["03-Cypress Tests"]
     types: [completed]
@@ -11,7 +19,7 @@ on:
 jobs:
   build-and-push:
     name: Build and push backend + frontend
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Validate DockerHub namespace
         run: |
@@ -51,8 +59,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-backend:pr-${{ github.event.workflow_run.pull_requests[0].number }}
-            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-backend:sha-${{ github.event.workflow_run.head_sha }}
+            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-backend:${{ env.IMAGE_TAG }}
+            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-backend:sha-${{ env.SOURCE_SHA }}
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
@@ -61,5 +69,5 @@ jobs:
           file: frontend/Dockerfile
           push: true
           tags: |
-            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-frontend:pr-${{ github.event.workflow_run.pull_requests[0].number }}
-            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-frontend:sha-${{ github.event.workflow_run.head_sha }}
+            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-frontend:${{ env.IMAGE_TAG }}
+            ${{ env.DOCKERHUB_NAMESPACE }}/empleados-frontend:sha-${{ env.SOURCE_SHA }}

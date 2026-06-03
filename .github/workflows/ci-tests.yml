@@ -1,11 +1,14 @@
 name: 01 CI Tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
+      - "main"
       - "develop"
   pull_request:
     branches:
+      - "main"
       - "develop"
       - "release"
       - "master"
