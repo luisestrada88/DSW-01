@@ -39,10 +39,11 @@ jobs:
           echo "Using SonarCloud organization: ${SONAR_ORGANIZATION}"
 
       - name: Validate SonarCloud token
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "Missing SONAR_TOKEN secret"
-            exit 1
+          if [ -z "${SONAR_TOKEN}" ]; then
+            echo "Missing SONAR_TOKEN secret; SonarCloud scan will be skipped"
           fi
 
       - name: Set up Node.js 22
@@ -61,6 +62,7 @@ jobs:
         run: npm run build
 
       - name: SonarCloud Scan (Maven)
+        if: ${{ secrets.SONAR_TOKEN != '' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
@@ -75,3 +77,7 @@ jobs:
           -Dsonar.test.inclusions=**/*Test.java,**/*.spec.ts,**/*.test.ts
           -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**,**/cypress/**,**/*.cy.ts
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+
+      - name: Skip SonarCloud scan when token is missing
+        if: ${{ secrets.SONAR_TOKEN == '' }}
+        run: echo "SonarCloud token is not configured, continuing without scan"
